@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Air Force 1 | DropSneaks</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #111;
+        }
+
+        /* Header */
+        header {
+            background: #000;
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .cart-button {
+            font-size: 24px;
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Product page layout */
+        .container {
+            display: flex;
+            padding: 40px;
+            gap: 60px;
+        }
+        .left {
+            flex: 1;
+            text-align: center;
+        }
+        .left img {
+            max-width: 100%;
+            height: auto;
+        }
+        .right {
+            flex: 1;
+        }
+        .product-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 28px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .size-select {
+            margin: 20px 0;
+        }
+        .size-select label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .size-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            background: #000;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn.sell {
+            background: #555;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .details {
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            font-size: 16px;
+        }
+        .details dt {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="HomePage.html">DropSneaks.</a>
+    <a href="cart.html" class="cart-button" title="View Cart">
+        🛒	<span id="cart-count" class="cart-count">0</span>
+    </a>
+</header>
+
+<div class="container">
+
+    <!-- Left: Product Image -->
+    <div class="left">
+        <img id="productImage" src="AF1.jpg" alt="Nike Air Force 1">
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="right">
+        <div class="product-title">Nike Air Force 1 07</div>
+        <div class="price">210.00 ₪</div>
+
+        <!-- Size Selection -->
+        <div class="size-select">
+            <label for="size">Select Size</label>
+            <select id="size">
+                <option>Select...</option>
+                <option>40</option>
+                <option>41</option>
+                <option>42</option>
+                <option>43</option>
+                <option>44</option>
+                <option>45</option>
+                <option>46</option>
+            </select>
+        </div>
+
+        <!-- Color Selection -->
+        <div class="size-select">
+            <label for="color">Select Color</label>
+            <select id="color" onchange="changeColor()">
+                <option>Select...</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="brown">Brown</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="btn buy">Add to Cart</button>
+            <button class="btn sell">Buy Now</button>
+        </div>
+
+        <!-- Details -->
+        <dl class="details">
+            <dt>Colorway:</dt>
+            <dd id="colorText">White</dd>
+
+            <dt>Brand:</dt>
+            <dd>Nike</dd>
+
+            <dt>Release Date:</dt>
+            <dd>01/01/2024</dd>
+
+            <dt>Description:</dt>
+            <dd>
+                The Nike Air Force 1 is a timeless classic and one of the most iconic sneakers
+                of all time. Featuring a clean white leather upper, durable construction,
+                and Nike Air cushioning, the Air Force 1 delivers unmatched comfort and style.
+                A staple on the streets and in sneaker culture for decades.
+            </dd>
+        </dl>
+    </div>
+
+</div>
+
+<script>
+function changeColor() {
+    const color = document.getElementById("color").value;
+    const image = document.getElementById("productImage");
+    const colorText = document.getElementById("colorText");
+
+    if (color === "white") {
+        image.src = "AF1.jpg";
+        colorText.innerText = "White / White";
+    } else if (color === "black") {
+        image.src = "AFB.jpg";
+        colorText.innerText = "Black / White";
+    } else if (color === "brown") {
+        image.src = "AFB1.png";
+        colorText.innerText = "Brown / White";
+    }
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countElem = document.getElementById('cart-count');
+    countElem.textContent = totalCount;
+    countElem.style.display = totalCount > 0 ? 'inline-block' : 'none';
+}
+
+document.querySelector('.btn.buy').addEventListener('click', function() {
+    const product = {
+        id: 'AF1-07',
+        name: 'Air Force 1 07',
+        description: 'Nike 2020 Release',
+        image: document.getElementById('productImage').src,
+        size: document.getElementById('size').value,
+        color: document.getElementById('color').value,
+        price: 210,
+        quantity: 1
+    };
+
+    if (!product.size || product.size === "Select...") {
+        alert('Please select a size!');
+        return;
+    }
+    if (!product.color || product.color === "Select...") {
+        alert('Please select a color!');
+        return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingIndex = cart.findIndex(item => item.id === product.id && item.size === product.size && item.color === product.color);
+
+    if (existingIndex !== -1) {
+        cart[existingIndex].quantity += 1;
+    } else {
+        cart.push(product);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert('Added to cart!');
+});
+
+// Update cart count on page load
+updateCartCount();
+</script>
+
+</body>
+</html>

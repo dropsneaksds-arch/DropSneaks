@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>DropSneaks</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("paper.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #111;
+        }
+
+        header {
+            background-color: #111;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .cart-button {
+            font-size: 24px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .image-header {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            position: absolute;
+            top: 38%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-shadow: 0 6px 14px rgba(0,0,0,0.7);
+            text-transform: uppercase;
+        }
+
+        .explore-btn {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 28px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .products {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-link h3,
+        .product-link:visited h3 {
+            color: #111;
+        }
+
+        .product-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">DS</div>
+    <nav>
+        <a href="HomePage.html">Home</a>
+        <a href="HomePage.html#featured">Shop</a>
+        <a href="About.html">About</a>
+        <a href="Contact.html">Contact</a>
+        <a href="cart.html" class="cart-button" title="View Cart">
+            🛒 <span id="cart-count" class="cart-count">0</span>
+        </a>
+    </nav>
+</header>
+
+<div class="image-header">
+    <img src="ES.png" alt="DropSneaks Header Image" />
+    <div class="header-title">DropSneaks.</div>
+    <a href="#featured" class="explore-btn">Explore Now</a>
+</div>
+
+<section class="products" id="featured">
+    <h2>"Find Your Sole"</h2>
+    <h2>Featured Drops</h2>
+
+    <div class="product-grid">
+        <!-- Jordan 4 -->
+        <a href="J4.html" class="product-link">
+            <div class="product-card">
+                <img src="J4.png" alt="Jordan 4 White Cement" />
+                <h3>Jordan 4 White Cement</h3>
+            </div>
+        </a>
+
+        <!-- Air Max 95 -->
+        <a href="AM.html" class="product-link">
+            <div class="product-card">
+                <img src="95.jpg" alt="Nike Air Max 95">
+                <h3>Nike Airmax 95</h3>
+            </div>
+        </a>
+
+        <!-- Air Force 1 -->
+        <a href="AF.html" class="product-link">
+            <div class="product-card">
+                <img src="AF.png" alt="Nike Air Force 1" />
+                <h3>Nike AirForce 1</h3>
+            </div>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 DropSneaks. All rights reserved.</p>
+</footer>
+
+<script>
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countElem = document.getElementById('cart-count');
+    countElem.textContent = totalCount;
+    countElem.style.display = totalCount > 0 ? 'inline-block' : 'none';
+}
+
+// Update cart count on page load
+updateCartCount();
+</script>
+
+</body>
+</html>

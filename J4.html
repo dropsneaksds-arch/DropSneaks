@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jordan 4 White Cement | DropSneaks</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #111; }
+        a { color: inherit; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        header {
+            background: #000;
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-button { font-size: 24px; position: relative; }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .container { display: flex; padding: 40px; gap: 60px; }
+        .left { flex: 1; text-align: center; }
+        .left img { max-width: 100%; height: auto; }
+        .right { flex: 1; }
+        .product-title { font-size: 32px; font-weight: bold; margin-bottom: 10px; }
+        .price { font-size: 28px; margin: 10px 0; font-weight: bold; }
+        .size-select { margin: 20px 0; }
+        .size-select label { display: block; margin-bottom: 8px; font-size: 16px; }
+        .size-select select { width: 100%; padding: 10px; font-size: 16px; }
+        .buttons { display: flex; gap: 20px; margin-top: 30px; }
+        .btn { flex: 1; padding: 15px; font-size: 18px; font-weight: bold; text-align: center; text-decoration: none; color: #fff; background: #000; border: none; cursor: pointer; text-transform: uppercase; }
+        .btn.sell { background: #555; }
+        .btn:hover { opacity: 0.8; }
+        .details { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 16px; }
+        .details dt { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<header>
+    <a href="HomePage.html">DropSneaks.</a>
+    <a href="cart.html" class="cart-button" title="View Cart">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+    </a>
+</header>
+
+<div class="container">
+
+    <!-- Left: Product Image -->
+    <div class="left">
+        <img id="productImage" src="J41.png" alt="Jordan 4 White Cement Retro">
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="right">
+        <div class="product-title">Jordan 4 White Cement Retro</div>
+        <div class="price" id="productPrice">375</div> ₪
+
+        <!-- Size Selection -->
+        <div class="size-select">
+            <label for="size">Select Size</label>
+            <select id="size">
+                <option value="">Select...</option>
+                <option>40</option>
+                <option>41</option>
+                <option>42</option>
+                <option>43</option>
+                <option>44</option>
+                <option>45</option>
+                <option>46</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="btn buy" id="addToCart">Add to Cart</button>
+            <button class="btn sell">Buy Now</button>
+        </div>
+
+        <!-- Details -->
+        <dl class="details">
+            <dt>Colorway:</dt>
+            <dd id="colorText">White / Cement</dd>
+            <dt>Brand:</dt>
+            <dd>Jordan / Nike</dd>
+            <dt>Release Date:</dt>
+            <dd>12/12/2023</dd>
+            <dt>Description:</dt>
+            <dd>
+                The Jordan 4 White Cement Retro is a true icon in sneaker history. Featuring a
+                classic white leather upper with cement grey accents and signature Nike Air
+                cushioning, this sneaker delivers both style and comfort. Loved by collectors
+                and casual wearers alike, it’s a must-have for any sneaker enthusiast.
+            </dd>
+        </dl>
+    </div>
+
+</div>
+
+<script>
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countElem = document.getElementById('cart-count');
+    countElem.textContent = totalCount;
+    countElem.style.display = totalCount > 0 ? 'inline-block' : 'none';
+}
+
+document.getElementById('addToCart').addEventListener('click', () => {
+    const size = document.getElementById('size').value;
+    if (!size) {
+        alert('Please select a size!');
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const product = {
+        id: 'J4WC',
+        name: 'Jordan 4 White Cement Retro',
+        description: 'Jordan 4 White Cement Sneaker',
+        image: 'J41.png',
+        size: size,
+        color: 'White/Cement',
+        price: 375,
+        quantity: 1
+    };
+
+    const existingIndex = cart.findIndex(item => item.id === product.id && item.size === size);
+    if (existingIndex !== -1) {
+        cart[existingIndex].quantity += 1;
+    } else {
+        cart.push(product);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert('Added to cart!');
+});
+
+// Update cart count on page load
+updateCartCount();
+</script>
+
+</body>
+</html>
